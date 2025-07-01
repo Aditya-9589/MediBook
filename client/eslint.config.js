@@ -6,6 +6,18 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   globalIgnores(['dist']),
+
+  // ✅ Node config files
+  {
+    files: ['tailwind.config.js', 'postcss.config.js'],
+    languageOptions: {
+      globals: globals.node,
+      ecmaVersion: 2020,
+      sourceType: 'script',
+    },
+  },
+
+  // ✅ App JS/JSX files
   {
     files: ['**/*.{js,jsx}'],
     extends: [

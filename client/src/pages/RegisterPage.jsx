@@ -10,36 +10,75 @@ export default function RegisterPage() {
     const handleRegister = (e) => {
         e.preventDefault();
         console.log("Register submitted:", { name, email, role, password });
-        // Later: Call API here
+        // TODO: Integrate backend API call
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div style={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#f3f4f6"
+        }}>
             <form
                 onSubmit={handleRegister}
-                className="bg-white shadow-md rounded p-6 w-full max-w-sm"
+                style={{
+                    backgroundColor: "#fff",
+                    padding: "2rem",
+                    borderRadius: "8px",
+                    width: "100%",
+                    maxWidth: "400px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+                }}
             >
-                <h2 className="text-2xl font-bold mb-4 text-center text-green-600">Register</h2>
+                <h2 style={{
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                    marginBottom: "1rem",
+                    textAlign: "center",
+                    color: "#16a34a"
+                }}>
+                    Register
+                </h2>
                 <input
                     type="text"
                     placeholder="Full Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full mb-4 px-3 py-2 border rounded"
                     required
+                    style={{
+                        width: "100%",
+                        padding: "0.5rem",
+                        marginBottom: "1rem",
+                        borderRadius: "4px",
+                        border: "1px solid #ccc"
+                    }}
                 />
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full mb-4 px-3 py-2 border rounded"
                     required
+                    style={{
+                        width: "100%",
+                        padding: "0.5rem",
+                        marginBottom: "1rem",
+                        borderRadius: "4px",
+                        border: "1px solid #ccc"
+                    }}
                 />
                 <select
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
-                    className="w-full mb-4 px-3 py-2 border rounded"
+                    style={{
+                        width: "100%",
+                        padding: "0.5rem",
+                        marginBottom: "1rem",
+                        borderRadius: "4px",
+                        border: "1px solid #ccc"
+                    }}
                 >
                     <option value="patient">Patient</option>
                     <option value="doctor">Doctor</option>
@@ -49,18 +88,36 @@ export default function RegisterPage() {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full mb-4 px-3 py-2 border rounded"
                     required
+                    style={{
+                        width: "100%",
+                        padding: "0.5rem",
+                        marginBottom: "1rem",
+                        borderRadius: "4px",
+                        border: "1px solid #ccc"
+                    }}
                 />
                 <button
                     type="submit"
-                    className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+                    style={{
+                        width: "100%",
+                        backgroundColor: "#16a34a",
+                        color: "white",
+                        padding: "0.5rem",
+                        border: "none",
+                        borderRadius: "4px",
+                        cursor: "pointer"
+                    }}
                 >
                     Register
                 </button>
-                <p className="text-sm mt-3 text-center">
+                <p style={{
+                    fontSize: "14px",
+                    marginTop: "1rem",
+                    textAlign: "center"
+                }}>
                     Already have an account?{" "}
-                    <Link to="/" className="text-green-500 hover:underline">
+                    <Link to="/" style={{ color: "#16a34a", textDecoration: "underline" }}>
                         Login
                     </Link>
                 </p>
