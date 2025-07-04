@@ -1,33 +1,68 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Layout from "../../components/Layout";
+import '../../App.css'
+
 const AppointmentsPage = () => {
-    const mockAppointments = [
-        { id: 1, date: "2025-06-30", time: "10:00 AM", doctor: "Dr. Mehta" },
-        { id: 2, date: "2025-07-02", time: "2:30 PM", doctor: "Dr. Sharma" },
-    ];
+    const [appointments, setAppointments] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const fetchAppointments = async () => {
+            try {
+                const token = localStorage.getItem("token");
+
+                const res = await axios.get("http://localhost:8000/api/appointments", {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                setAppointments(res.data);
+                setLoading(false);
+            } catch (err) {
+                console.error("Failed to load appointments list", err)
+                setError("Failed to fetch appointments");
+                setLoading(false);
+            }
+        };
+
+        fetchAppointments();
+    }, []);
 
     return (
-        <div>
+        <Layout>
             <h2>My Appointments</h2>
-            <table border="1" cellPadding="10">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Doctor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {mockAppointments.map((appt) => (
-                        <tr key={appt.id}>
-                            <td>{appt.id}</td>
-                            <td>{appt.date}</td>
-                            <td>{appt.time}</td>
-                            <td>{appt.doctor}</td>
+            {loading ? (
+                <p>Loading...</p>
+            ) : error ? (
+                <p style={{ color: "red" }}>{error}</p>
+            ) : appointments.length === 0 ? (
+                <p>No appointments found.</p>
+            ) : (
+                <table border="1" cellPadding="10">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Doctor</th>
+                            <th>Status</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {appointments.map((appt, index) => (
+                            <tr key={appt._id}>
+                                <td>{index + 1}</td>
+                                <td>{appt.date}</td>
+                                <td>{appt.time}</td>
+                                <td>{appt.doctor?.name || "N/A"}</td>
+                                <td>{appt.status}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
+        </Layout>
     );
 };
 

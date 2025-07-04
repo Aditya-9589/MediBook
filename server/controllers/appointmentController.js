@@ -42,8 +42,9 @@ const getAppointments = async (req, res) => {
         }
 
         const appointments = await Appointment.find(filter)
+            .populate("doctor", "name email")
             .populate("patient", "name email")
-            .populate("doctor", "name email");
+            .sort({ createdAt: -1 });
 
         res.status(200).json(appointments);
     } catch (err) {

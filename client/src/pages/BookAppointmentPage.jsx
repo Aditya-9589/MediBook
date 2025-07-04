@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import axios from "axios"; 
+import axios from "axios";
+import '../App.css'
 
 const BookAppointmentPage = () => {
     const [formData, setFormData] = useState({
@@ -45,8 +46,9 @@ const BookAppointmentPage = () => {
 
     return (
         <Layout>
-            <h2>Book Appointment</h2>
-            <form onSubmit={handleSubmit}>
+            <form className="appointment-form" onSubmit={handleSubmit}>
+                <h2>Book Appointment</h2>
+
                 <label>Doctor:</label>
                 <select name="doctor" value={formData.doctor} onChange={handleChange} required>
                     <option value="">Select Doctor</option>
@@ -54,23 +56,20 @@ const BookAppointmentPage = () => {
                         <option key={doc._id} value={doc._id}>{doc.name}</option>
                     ))}
                 </select>
-                <br /><br />
 
                 <label>Date:</label>
                 <input type="date" name="date" value={formData.date} onChange={handleChange} required />
-                <br /><br />
 
                 <label>Time:</label>
                 <input type="time" name="time" value={formData.time} onChange={handleChange} required />
-                <br /><br />
 
                 <label>Reason:</label>
                 <textarea name="reason" value={formData.reason} onChange={handleChange} required />
-                <br /><br />
 
                 <button type="submit">Book Appointment</button>
             </form>
         </Layout>
+
     );
 };
 

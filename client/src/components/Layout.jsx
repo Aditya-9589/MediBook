@@ -33,8 +33,8 @@ const Layout = ({ children }) => {
     };
 
     return (
-        <div style={{ display: "flex", minHeight: "100vh" }}>
-            <aside style={{ width: "250px", background: "#1E3A8A", color: "white", padding: "20px" }}>
+        <div style={{ display: "flex", minHeight: "100vh", width: "100%", overflowX: "hidden" }}>
+            <aside style={{ width: "250px", background: "#1E3A8A", color: "white", padding: "20px 10px", minHeight: "100vh", boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)" }}>
                 <h2 style={{ fontSize: "24px", marginBottom: "20px" }}>MediBook</h2>
                 {role && navItems[role]?.map((item, idx) => (
                     <div key={idx}>
@@ -47,7 +47,7 @@ const Layout = ({ children }) => {
                     Logout
                 </button>
             </aside>
-            <main style={{ flex: 1, padding: "20px" }}>
+            <main style={{ flex: 1, padding: "20px 30px", background: "#f9f9f9" }}>
                 {children}
             </main>
         </div>

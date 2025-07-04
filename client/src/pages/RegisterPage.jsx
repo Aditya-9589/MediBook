@@ -7,11 +7,33 @@ export default function RegisterPage() {
     const [role, setRole] = useState("patient");
     const [password, setPassword] = useState("");
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
-        console.log("Register submitted:", { name, email, role, password });
-        // TODO: Integrate backend API call
+
+        try {
+            const response = await fetch("http://localhost:8000/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, email, password, role }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Registration successful! Please log in.");
+                // Optional: Redirect to login
+                window.location.href = "/";
+            } else {
+                alert(data.message || "Registration failed");
+            }
+        } catch (error) {
+            alert("An error occurred while registering.");
+            console.error(error);
+        }
     };
+
 
     return (
         <div style={{

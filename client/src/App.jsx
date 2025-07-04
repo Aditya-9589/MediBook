@@ -4,6 +4,7 @@ import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
 import BookAppointmentPage from "./pages/BookAppointmentPage";
 import PrivateRoute from "./components/PrivateRoute";
+import './App.css';
 
 // (Optional) mock placeholder pages
 import AppointmentsPage from "./pages/appointments/AppointmentsPage";

@@ -2,30 +2,30 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-const userRoutes = require("./routes/users");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Middleware
+// 🔐 Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/users", userRoutes);
-
-// ✅ Auth Routes
+// 📦 Routes
 const authRoutes = require("./routes/authRoutes");
-app.use("/api/auth", authRoutes);
-
 const appointmentRoutes = require("./routes/appointments");
-app.use("/api/appointments", appointmentRoutes);
+const userRoutes = require("./routes/users"); // ✅ added in structured order
 
-// Test route
+// 🔗 Route Mounting
+app.use("/api/auth", authRoutes);             // Login/Register
+app.use("/api/appointments", appointmentRoutes); // Booking, status update
+app.use("/api/users", userRoutes);            // Doctors, patients, all users
+
+// 🔍 Health check route
 app.get("/", (req, res) => {
     res.send("MediBook API is running");
 });
 
-// MongoDB connection
+// 🛢️ MongoDB Connection
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
