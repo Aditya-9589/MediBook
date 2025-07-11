@@ -16,12 +16,12 @@ const AppointmentsPage = () => {
                 const res = await axios.get("http://localhost:8000/api/appointments", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-
                 setAppointments(res.data);
-                setLoading(false);
+
             } catch (err) {
                 console.error("Failed to load appointments list", err)
                 setError("Failed to fetch appointments");
+            } finally {
                 setLoading(false);
             }
         };

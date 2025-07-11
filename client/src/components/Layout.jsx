@@ -7,7 +7,8 @@ const Layout = ({ children }) => {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
-        setRole(user?.role);
+        // setRole(user?.role);
+        if (user?.role) setRole(user.role);
     }, []);
 
     const handleLogout = () => {

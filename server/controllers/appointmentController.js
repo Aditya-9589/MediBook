@@ -1,5 +1,3 @@
-// server/controllers/appointmentController.js
-
 const Appointment = require("../models/Appointment");
 
 // @desc    Book a new appointment
@@ -25,30 +23,34 @@ const bookAppointment = async (req, res) => {
     }
 };
 
-// @desc    Get all appointments (filtered by role)
-// @route   GET /api/appointments
-// @access  Private (Admin/Doctor/Patient)
+
 const getAppointments = async (req, res) => {
     try {
-        const role = req.user.role;
-        const userId = req.user.userId;
 
-        let filter = {};
+        // extra for checking
+        console.log("Incoming request user:", req.user); // 👈 Add this
+
+        const { role, userId } = req.user;
+
+        let query = {};
 
         if (role === "doctor") {
-            filter = { doctor: userId };
-        } else if (role === "patient") {
-            filter = { patient: userId };
+            query.doctor = userId; // Only show appointments for logged-in doctor
         }
 
-        const appointments = await Appointment.find(filter)
-            .populate("doctor", "name email")
-            .populate("patient", "name email")
-            .sort({ createdAt: -1 });
+        if (role === "patient") {
+            query.patient = userId; // Only show patient's appointments
+        }
 
+        const appointments = await Appointment.find(query)
+            .populate("doctor", "name email")
+            .populate("patient", "name email");
+
+        console.log(`[GET] Appointments for ${role} - ${userId}`);
         res.status(200).json(appointments);
     } catch (err) {
-        res.status(500).json({ message: "Failed to fetch appointments", error: err.message });
+        console.error("Error fetching appointments:", err);
+        res.status(500).json({ message: "Error retrieving appointments" });
     }
 };
 
@@ -73,6 +75,7 @@ const updateAppointmentStatus = async (req, res) => {
         res.status(500).json({ message: "Failed to update status", error: err.message });
     }
 };
+
 
 module.exports = {
     bookAppointment,

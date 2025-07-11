@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const { getPatientsForDoctor } = require("../controllers/userController");
+const authMiddleware = require('../middleware/auth');
 
 // Get all doctors
 router.get("/doctors", async (req, res) => {
@@ -31,5 +33,8 @@ router.get("/patients", async (req, res) => {
         res.status(500).json({ message: "Failed to fetch patients", error: err.message });
     }
 });
+
+// GET only patients of the logged-in doctor
+router.get("/patients", authMiddleware, getPatientsForDoctor);
 
 module.exports = router;

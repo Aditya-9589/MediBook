@@ -4,7 +4,10 @@ import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
 import BookAppointmentPage from "./pages/BookAppointmentPage";
 import PrivateRoute from "./components/PrivateRoute";
+import DoctorDashboard from "./pages/dashboard/DoctorDashboard";
+import Layout from "./components/Layout";
 import './App.css';
+
 
 // (Optional) mock placeholder pages
 import AppointmentsPage from "./pages/appointments/AppointmentsPage";
@@ -15,8 +18,21 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Public Routes */}
+        <Route
+          path="/"
+          element={
+            <LoginPage />
+          }
+        />
+
+        <Route
+          path="/register"
+          element={
+            <RegisterPage />
+          }
+        />
 
         {/* Protected Routes by role */}
         <Route
@@ -27,6 +43,7 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/appointments"
           element={
@@ -35,6 +52,7 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/patients"
           element={
@@ -43,6 +61,7 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/users"
           element={
@@ -51,12 +70,25 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route 
-          path="/book" 
+
+        <Route
+          path="/book"
           element={
             <PrivateRoute>
               <BookAppointmentPage />
-            </PrivateRoute>} />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/doctor"
+          element={
+            <PrivateRoute allowedRoles={["doctor"]}>
+              <DoctorDashboard />
+            </PrivateRoute>
+          }
+        />
+
       </Routes>
     </Router>
   );
