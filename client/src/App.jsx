@@ -4,8 +4,8 @@ import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
 import BookAppointmentPage from "./pages/BookAppointmentPage";
 import PrivateRoute from "./components/PrivateRoute";
-import DoctorDashboard from "./pages/dashboard/DoctorDashboard";
-import Layout from "./components/Layout";
+// import DoctorDashboard from "./pages/dashboard/DoctorDashboard";
+// import Layout from "./components/Layout";
 import './App.css';
 
 
@@ -76,15 +76,6 @@ function App() {
           element={
             <PrivateRoute>
               <BookAppointmentPage />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/doctor"
-          element={
-            <PrivateRoute allowedRoles={["doctor"]}>
-              <DoctorDashboard />
             </PrivateRoute>
           }
         />

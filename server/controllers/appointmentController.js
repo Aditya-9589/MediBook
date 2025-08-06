@@ -28,25 +28,26 @@ const getAppointments = async (req, res) => {
     try {
 
         // extra for checking
-        console.log("Incoming request user:", req.user); // 👈 Add this
+        // console.log("Incoming request user:", req.user); //
 
-        const { role, userId } = req.user;
+        const { role, _id } = req.user;
 
         let query = {};
 
         if (role === "doctor") {
-            query.doctor = userId; // Only show appointments for logged-in doctor
+            query.doctor = _id; // Only show appointments for logged-in doctor
         }
 
         if (role === "patient") {
-            query.patient = userId; // Only show patient's appointments
+            query.patient = _id; // Only show patient's appointments
         }
 
         const appointments = await Appointment.find(query)
             .populate("doctor", "name email")
             .populate("patient", "name email");
 
-        console.log(`[GET] Appointments for ${role} - ${userId}`);
+        // console.log(`[GET] Appointments for ${role} - ${userId}`);
+
         res.status(200).json(appointments);
     } catch (err) {
         console.error("Error fetching appointments:", err);

@@ -24,6 +24,8 @@ export default function LoginPage() {
             // Store token and user in localStorage
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
+            
+            console.log("Login Response:", res.data);       // Extra
 
             alert("Login successful!");
             navigate("/dashboard");

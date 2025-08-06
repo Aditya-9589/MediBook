@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+// const userRoutes = require("./routes/users");
 require("dotenv").config();
 
 const app = express();
@@ -13,7 +14,8 @@ app.use(express.json());
 // 📦 Routes
 const authRoutes = require("./routes/authRoutes");
 const appointmentRoutes = require("./routes/appointments");
-const userRoutes = require("./routes/users"); // ✅ added in structured order
+const userRoutes = require("./routes/users");
+
 
 // 🔗 Route Mounting
 app.use("/api/auth", authRoutes);             // Login/Register

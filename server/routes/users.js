@@ -35,6 +35,8 @@ router.get("/patients", async (req, res) => {
 });
 
 // GET only patients of the logged-in doctor
-router.get("/patients", authMiddleware, getPatientsForDoctor);
+// router.get("/doctor/patients", authMiddleware, getPatientsForDoctor);
+router.get("/mypatients", authMiddleware, getPatientsForDoctor);
+
 
 module.exports = router;

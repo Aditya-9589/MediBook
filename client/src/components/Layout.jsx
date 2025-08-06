@@ -23,9 +23,13 @@ const Layout = ({ children }) => {
             { path: "/appointments", label: "My Appointments" },
             { path: "/book", label: "Book Appointment" },
         ],
+        // doctor: [
+        //     { path: "/dashboard", label: "Dashboard" },
+        //     { path: "/doctor/patients", label: "My Patients" },
+        // ],
         doctor: [
             { path: "/dashboard", label: "Dashboard" },
-            { path: "/patients", label: "My Patients" },
+            { path: "/patients", label: "My Patients" }, // ✅ FIXED HERE
         ],
         admin: [
             { path: "/dashboard", label: "Dashboard" },

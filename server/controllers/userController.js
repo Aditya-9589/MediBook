@@ -2,6 +2,10 @@
 const Appointment = require("../models/Appointment");
 
 const getPatientsForDoctor = async (req, res) => {
+
+    console.log("REQ.USER:", req.user); // ✅ Check if user is correctly coming in
+
+
     try {
         const doctorId = req.user._id;
 
